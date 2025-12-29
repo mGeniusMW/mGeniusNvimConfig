@@ -1,4 +1,3 @@
--- 1. Options & Keymaps (You can keep these here for now)
 vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
