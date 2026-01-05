@@ -7,7 +7,5 @@ vim.opt.relativenumber = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.clipboard = "unnamedplus"
-vim.keymap.set('n','<C-n>',':Neotree filesystem reveal left<CR>', {})
-vim.keymap.set('n','<C-b>',':Neotree close', {})
 vim.keymap.set('n', '<Tab>', 'gt', { desc = 'Next Tab' })
 vim.keymap.set('n', '<S-Tab>', 'gT', { desc = 'Previous Tab' })
