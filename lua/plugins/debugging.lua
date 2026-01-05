@@ -10,29 +10,9 @@ return {
 
     dapui.setup()
 
-    dap.adapters.dart = {
-      type = "executable",
-      command = "dart",
-      args = { "debug_adapter" },
-    }
+    -- Dart-Config entfernt (wird jetzt von flutter-tools übernommen)
 
-    dap.configurations.dart = {
-      {
-        type = "dart",
-        request = "launch",
-        name = "Launch Flutter App",
-        program = "${workspaceFolder}/lib/main.dart",
-        cwd = "${workspaceFolder}",
-      },
-      {
-        type = "dart",
-        request = "launch",
-        name = "Launch Current File",
-        program = "${file}",
-        cwd = "${workspaceFolder}",
-      },
-    }
-
+    -- UI automatisch öffnen/schließen
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
     end
@@ -46,6 +26,7 @@ return {
       dapui.close()
     end
 
+    -- Keymaps
     vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
     vim.keymap.set("n", "<Leader>dc", ":DapContinue<CR>")
     vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
