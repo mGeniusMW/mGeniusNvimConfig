@@ -13,6 +13,14 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+        -- Keymap to format only using null-ls (Prettier, Stylua, etc.)
+        vim.keymap.set("n", "<leader>gf", function()
+            vim.lsp.buf.format({
+                filter = function(client)
+                    -- Only allow null-ls to format
+                    return client.name == "null-ls"
+                end,
+            })
+        end, {})
     end,
 }
