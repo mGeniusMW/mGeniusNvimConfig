@@ -1,26 +1,25 @@
 return {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+        "jay-babu/mason-null-ls.nvim", -- The bridge plugin
+    },
     config = function()
         local null_ls = require("null-ls")
-        null_ls.setup({
-            sources = {
-                null_ls.builtins.formatting.stylua,
-                null_ls.builtins.formatting.prettier,
-                null_ls.builtins.diagnostics.erb_lint,
-                null_ls.builtins.formatting.black,
-                null_ls.builtins.formatting.isort,
-                null_ls.builtins.diagnostics.pylint,
-            },
+        local mason_null_ls = require("mason-null-ls")
+
+        -- 1. Setup the bridge first
+        mason_null_ls.setup({
+            ensure_installed = { "stylua", "prettier", "black", "cfn_lint" },
+            automatic_installation = true, -- This is the magic "Auto" part
         })
 
-        -- Keymap to format only using null-ls (Prettier, Stylua, etc.)
-        vim.keymap.set("n", "<leader>gf", function()
-            vim.lsp.buf.format({
-                filter = function(client)
-                    -- Only allow null-ls to format
-                    return client.name == "null-ls"
-                end,
-            })
-        end, {})
+        -- 2. Setup none-ls
+        null_ls.setup({
+            sources = {
+                -- You can leave this empty or add specific ones
+                null_ls.builtins.formatting.stylua,
+                null_ls.builtins.diagnostics.cfn_lint,
+            },
+        })
     end,
 }
